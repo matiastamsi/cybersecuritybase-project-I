@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+  Hi {{ user.username }}!
+
+  {% if notes %}
+    {% for n in notes %}
+      <li>{{ n }}</li>
+    {% endfor %}
+  {% endif %}
+
+  <form action="/add_note" method="POST">
+    {% csrf_token %}
+    <span>Note:</span><br/>
+    <input type="text" name="note" value="{{ note }}"/><br/>
+    <input type="submit" value="Add!"/>
+  </form>
+
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+
+{% endblock %}
