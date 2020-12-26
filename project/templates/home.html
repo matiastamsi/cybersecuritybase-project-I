@@ -5,19 +5,33 @@
 {% if user.is_authenticated %}
 
   Hi {{ user.username }}!
-
-  {% if notes %}
-    {% for n in notes %}
-      <li>{{ n }}</li>
-    {% endfor %}
-  {% endif %}
-
+  <br><br/>
   <form action="/add_note" method="POST">
     {% csrf_token %}
     <span>Note:</span><br/>
     <input type="text" name="note" value="{{ note }}"/><br/>
     <input type="submit" value="Add!"/>
   </form>
+  <br><br/>
+  <form action="/search_note" method="POST">
+    {% csrf_token %}
+    <span>Search:</span><br/>
+    <input type="text" name="note" value="{{ note }}"/><br/>
+    <input type="submit" value="Search!"/>
+  </form>
+  <br><br/>
+  {% if searched_notes %}
+    Searched notes:
+    {% for n in searched_notes %}
+      <li>{{ n }}</li>
+    {% endfor %}
+  {% endif %}
+  {% if notes %}
+    All notes:
+    {% for n in notes %}
+      <li>{{ n }}</li>
+    {% endfor %}
+  {% endif %}
 
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 

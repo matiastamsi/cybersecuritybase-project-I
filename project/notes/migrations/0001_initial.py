@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             name='Note',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('note', models.TextField()),
+                ('owner_name', models.TextField()),
             ],
         ),
     ]
