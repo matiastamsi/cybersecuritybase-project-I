@@ -1,6 +1,7 @@
 import sqlite3
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.utils.html import strip_tags, escape
 from notes.models import Note
 
 from django.contrib.auth.models import User
@@ -23,7 +24,14 @@ def index(request):
 
 @login_required
 def add_note(request):
-    Note.objects.create(owner_name= request.user, note= request.POST.get('note'))
+    # FLAW 4: Prevent user to add malicious html or scripts
+    # See that this now limits the functionality
+    # So if this app is going to be a notebook for
+    # html coder where he/she adds keeps different syntax and tags
+    # then there should be some other kind of validation than this.
+    # Perhaps the bleach package. This however works for me!
+    form_note = escape(strip_tags(request.POST.get('note')))
+    Note.objects.create(owner_name= request.user, note= form_note)
     return redirect(index)
 
 @login_required
