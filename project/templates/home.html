@@ -5,7 +5,7 @@
 {% if user.is_authenticated %}
 
   Hi {{ user.username }}!
-  <br><br/>
+  <br>  <p><a href="{% url 'logout' %}">Log Out</a></p> <br/>
   <form action="/add_note" method="POST">
     {% csrf_token %}
     <span>Note:</span><br/>
@@ -32,8 +32,6 @@
       <li>{{ n }}</li>
     {% endfor %}
   {% endif %}
-
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
 
 {% else %}
   <p>You are not logged in</p>
