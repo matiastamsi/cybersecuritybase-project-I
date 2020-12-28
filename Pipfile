@@ -9,7 +9,11 @@ certifi = "*"
 chardet = "*"
 idna = "*"
 urllib3 = "*"
-pycrypto = 2.6.1
+django = "*"
+asgiref = "*"
+pytz = "*"
+sqlparse = "*"
+pathlib = "*"
 
 [requires]
 python_version = "3.8"
